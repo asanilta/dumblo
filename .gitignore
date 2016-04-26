@@ -1,0 +1,10 @@
+Library/
+obj/
+ProjectSettings/
+Temp/
+Assembly-CSharp.csproj
+Assembly-CSharp-Editor.csproj
+Assembly-UnityScript-Editor-firstpass.unityproj
+dumblo.apk
+Dumblo.sln
+Dumblo.userprefs
