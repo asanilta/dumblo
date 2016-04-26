@@ -57,7 +57,10 @@
      <Compile Include="Assets\Scripts\GameFrame.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GlobalData.cs" />
+     <Compile Include="Assets\Scripts\ListBank.cs" />
+     <Compile Include="Assets\Scripts\ListBox.cs" />
      <Compile Include="Assets\Scripts\ListObject.cs" />
+     <Compile Include="Assets\Scripts\ListPositionCtrl.cs" />
      <Compile Include="Assets\Scripts\MarkerCreator.cs" />
      <Compile Include="Assets\Scripts\TrackableMarker.cs" />
      <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
