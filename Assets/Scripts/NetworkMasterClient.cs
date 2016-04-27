@@ -24,19 +24,22 @@ public class NetworkMasterClient : MonoBehaviour
 
     static NetworkMasterClient singleton;
 
+	private GameObject gameStatus;
+
     string asd = "wew\n";
 
     void Start()
     {
-        Application.logMessageReceived += test;
+		gameStatus = GameObject.Find ("GameStatus");
+		Application.logMessageReceived += test;
         if (DedicatedClient)
             InitializeClient();
     }
 
     void test(string logString, string stackTrace, LogType type)
     {
-		if (type != LogType.Log)
-			return;
+		/*if (type != LogType.Log)
+			return;*/
         asd += logString + "\n";
     }
 
@@ -146,6 +149,7 @@ public class NetworkMasterClient : MonoBehaviour
         var msg = netMsg.ReadMessage<MasterMsgTypes.GuessedMessage>();
         string guess = msg.name;
         Debug.Log("OnGuessed " + guess);
+		gameStatus.GetComponent<GamePlayStatus> ().foundMatch (guess);
         // OnServerEvent((MasterMsgTypes.NetworkMasterServerEvent)msg.resultCode);
     }
 
@@ -275,7 +279,7 @@ public class NetworkMasterClient : MonoBehaviour
     }
 
     void OnGUI()
-    {
+    {/*
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.black;
         GUI.Label(new Rect(0, 0, 300, 50), asd, style);
@@ -351,5 +355,5 @@ public class NetworkMasterClient : MonoBehaviour
                 y += 22;
             }
         }
-    }
+    */}
 }

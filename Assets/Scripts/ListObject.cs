@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 public class ListObject : MonoBehaviour {
 	private static List<GameObject> freeModels = new List<GameObject>();
+	private static int totalCount;
 
 	void Awake () {
 		Object[] objects = Resources.LoadAll("Prefabs");
 		foreach (Object obj in objects) {
 			freeModels.Add ((GameObject)obj);
 		}
+		totalCount = freeModels.Count;
 	}
 
 	public static GameObject getFreeModel() {
@@ -20,8 +22,8 @@ public class ListObject : MonoBehaviour {
 		return model;
 	}
 
-	public static int getCount() {
-		return freeModels.Count;
+	public static int getTotalCount() {
+		return totalCount;
 	}
 
 }

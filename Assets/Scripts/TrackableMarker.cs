@@ -8,6 +8,8 @@ namespace Vuforia
 public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 		private TrackableBehaviour mTrackableBehaviour;
 		private GameObject model;
+		private GameObject network;
+
 		//private static bool trackedSingleFrameMarker = false;
 
 		void Start ()
@@ -17,6 +19,7 @@ public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 			if (mTrackableBehaviour) {
 				mTrackableBehaviour.RegisterTrackableEventHandler(this);
 			}
+			network = GameObject.Find ("GameNetwork");
 		}
 
 		void Update ()
@@ -52,6 +55,7 @@ public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 				model.SetActive (true);
 			}
 			model.GetComponent<Renderer> ().enabled = true;
+			network.GetComponent<NetworkMasterClient>().Guess (model.transform.name);
 			//GameObject.Find ("Model Name").GetComponent<Text> ().text = model.transform.name;
 		}
 
