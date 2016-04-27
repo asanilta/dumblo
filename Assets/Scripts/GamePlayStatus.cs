@@ -26,6 +26,7 @@ public class GamePlayStatus : MonoBehaviour {
 	void Start() {
 		startTimer(90.0f);
 		coinsText.text = coins.ToString();
+		notifText.enabled = false;
 		foundMatchesText.text = foundMatches + "/" + ListObject.getTotalCount () + " match";
 	}
 
@@ -63,6 +64,7 @@ public class GamePlayStatus : MonoBehaviour {
 
 	public void foundMatch(string objectName) {
 		ShowMessage ();
+		//deactivateModel (objectName);
 		GameObject.Find (objectName).transform.parent.gameObject.SetActive (false);
 		foundMatches++;
 		foundMatchesText.text = foundMatches + "/" + ListObject.getTotalCount () + " match";
@@ -84,6 +86,7 @@ public class GamePlayStatus : MonoBehaviour {
 		berhasilCoinsText.text = coinsText.text;
 		berhasil.SetActive (true);
 		ARCamera.SetActive (false);
+		GlobalData.money += (uint) (int)coins;
 	}
 
 	public void toMainMenu() {
@@ -98,6 +101,11 @@ public class GamePlayStatus : MonoBehaviour {
 		notifText.enabled = true;
 		yield return new WaitForSeconds(2.0f);
 		notifText.enabled = false;
+	}
+
+	IEnumerator deactivateModel(string objectName) {
+		yield return new WaitForSeconds (1.0f);
+		GameObject.Find (objectName).transform.parent.gameObject.SetActive (false);
 	}
 
 }

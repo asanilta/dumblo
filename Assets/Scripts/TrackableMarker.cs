@@ -65,6 +65,7 @@ public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 				model.GetComponent<Renderer> ().enabled = false;
 				//GameObject.Find ("Model Name").GetComponent<Text> ().text = "";
 			}
+			network.GetComponent<NetworkMasterClient>().Guess ("");
 			/*Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
 			Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
