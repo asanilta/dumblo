@@ -43,10 +43,20 @@ public class NetworkMasterServer : MonoBehaviour
 	Dictionary<string, Rooms> gameTypeRooms = new Dictionary<string, Rooms>();
 	Dictionary<int, string> guesses = new Dictionary<int, string>();
 
+	string asd = "wew\n";
+
 	public void Start()
 	{
+		Application.logMessageReceived += test;
 		if (DedicatedServer)
 			InitializeServer();
+	}
+
+	void test(string logString, string stackTrace, LogType type)
+	{
+		/*if (type != LogType.Log)
+			return;*/
+		asd += logString + "\n";
 	}
 
 	public void InitializeServer()
@@ -227,6 +237,9 @@ public class NetworkMasterServer : MonoBehaviour
 
 	void OnGUI()
 	{
+		GUIStyle style = new GUIStyle();
+		style.normal.textColor = Color.black;
+		GUI.Label(new Rect(0, 0, 300, 50), asd, style);
 		// if (NetworkServer.active)
 		// {
 		// 	GUI.Label(new Rect(0, 0, 200, 20), "Online port:" + MasterServerPort);
