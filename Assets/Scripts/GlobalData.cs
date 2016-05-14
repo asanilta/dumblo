@@ -30,10 +30,12 @@ public static class GlobalData {
 
 	public static byte volume_music;
 	public static byte volume_sfx;
+	public static bool sound_on = PlayerPrefs.GetInt("sound_on", 1) == 1? true : false;
 
-	public static bool notification_on;
+	public static bool notification_on = PlayerPrefs.GetInt("notification_on", 1) == 1? true : false;
 
 	public static bool ability_updated = false;
 	public static bool currency_updated = false;
 	public static bool level_updated = false;
+
 }

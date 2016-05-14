@@ -22,6 +22,17 @@ public class ButtonController : MonoBehaviour {
 		obj.transform.localPosition = new Vector3 (0, 0, 0);
 	}
 
+	public void PopupPrefab(int index) {
+		GameObject obj = Instantiate(prefabs[index]) as GameObject;
+		obj.transform.SetParent(GameObject.Find("Canvas").transform);
+		obj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
+		obj.transform.localPosition = new Vector3 (0, 0, 0);
+	}
+
+	public void DestroyParent() {
+		Destroy (transform.parent.gameObject);
+	}
+
 	public void Play(int difficulty) {
 		SceneManager.LoadScene ("gamePlay");
 	}
@@ -132,6 +143,16 @@ public class ButtonController : MonoBehaviour {
 		default:
 			return false;
 		}
+	}
+
+	public void SwitchNotification() {
+		GlobalData.notification_on = GlobalData.notification_on? true : false;
+		PlayerPrefs.SetInt("notification_on", GlobalData.notification_on? 1 : 0);
+	}
+
+	public void SwitchSound() {
+		GlobalData.sound_on = GlobalData.sound_on? true : false;
+		PlayerPrefs.SetInt("sound_on", GlobalData.sound_on? 1 : 0);
 	}
 
 	public void Exit() {
