@@ -16,17 +16,24 @@ public class EXPBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GlobalData.last_exp != GlobalData.player_exp)
-		{
-			GlobalData.last_exp += (uint) (int) Mathf.FloorToInt(ProgressSpeed * Time.deltaTime);
-			if (GlobalData.last_exp > GlobalData.player_exp)
+		if (GlobalData.last_exp != GlobalData.player_exp) {
+			if (GlobalData.last_exp < GlobalData.player_exp) {
 				GlobalData.last_exp = GlobalData.player_exp;
-			filler.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, ExpProgress(GlobalData.last_exp));
-			text.text = GlobalData.player_exp.ToString() + '/' + GameManager.NextExp (GlobalData.player_level).ToString();
+			} else {
+				GlobalData.last_exp += (uint)(int)Mathf.FloorToInt (ProgressSpeed * Time.deltaTime);
+				if (GlobalData.last_exp > GlobalData.player_exp)
+					GlobalData.last_exp = GlobalData.player_exp;
+			}
+			filler.SetInsetAndSizeFromParentEdge (RectTransform.Edge.Left, 0, ExpProgress (GlobalData.last_exp));
+			text.text = GlobalData.player_exp.ToString () + '/' + GameManager.NextExp (GlobalData.player_level).ToString ();
 		}
 	}
 
 	float ExpProgress(uint exp) {
-		return exp / GameManager.NextExp(GlobalData.player_level) * filler.rect.width;
+		float progress = exp / GameManager.NextExp (GlobalData.player_level) * filler.rect.width;
+		if (progress >= 1){
+			GameManager.LevelUp ();
+		}
+		return progress;
 	}
 }

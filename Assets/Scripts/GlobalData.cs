@@ -7,6 +7,7 @@ public static class GlobalData {
 	public static uint player_level;
 	public static uint player_exp;
 	public static uint next_exp;
+	public static uint last_exp;
 
 	public static uint avatar_hair;
 	public static uint avatar_top;
@@ -32,4 +33,7 @@ public static class GlobalData {
 
 	public static bool notification_on;
 
+	public static bool ability_updated = false;
+	public static bool currency_updated = false;
+	public static bool level_updated = false;
 }

@@ -41,54 +41,71 @@ public class ButtonController : MonoBehaviour {
 			default:
 				break;
 			}
+			GlobalData.ability_updated = true;
 		}
 	}
 	*/
 	public void BuyMoneyBooster (int price) {
 		if (Pay((uint) (int) price, 1)) {
 			GlobalData.item_moneybooster += 1;
+			GameManager.UpdateMoneyBooster ();
+			GlobalData.ability_updated = true;
 		}
 	}
 	
 	public void BuyRemovePair (int price) {
 		if (Pay((uint) (int) price, 1)) {
 			GlobalData.item_removepair += 1;
+			GameManager.UpdateRemovePair ();
+			GlobalData.ability_updated = true;
 		}
 	}
 	
 	public void BuyTimeBooster (int price) {
 		if (Pay((uint) (int) price, 1)) {
 			GlobalData.item_timebooster += 1;
+			GameManager.UpdateTimeBooster ();
+			GlobalData.ability_updated = true;
 		}
 	}
 
 	public void Buy1000Coin (int price) {
 		if (Pay((uint) (int) price, 0)) {
 			GlobalData.money += 1000;
+			GameManager.UpdateMoney ();
+			GlobalData.currency_updated = true;
 		}
 	}
 
 	public void Buy10000Coin (int price) {
 		if (Pay((uint) (int) price, 0)) {
 			GlobalData.money += 10000;
+			GameManager.UpdateMoney ();
+			GlobalData.currency_updated = true;
 		}
 	}
 
 	public void Buy100000Coin (int price) {
 		if (Pay((uint) (int) price, 0)) {
 			GlobalData.money += 100000;
+			GameManager.UpdateMoney ();
+			GlobalData.currency_updated = true;
 		}
 	}
 
 	public void Buy10Gem (int price) {
 		if (Pay((uint) (int) price, 0)) {
 			GlobalData.gems += 10;
+			GameManager.UpdateGems ();
+			GlobalData.currency_updated = true;
 		}
 	}
 
 	public void Buy100Gem (int price) {
 		if (Pay((uint) (int) price, 0)) {
 			GlobalData.gems += 100;
+			GameManager.UpdateGems ();
+			GlobalData.currency_updated = true;
 		}
 	}
 
@@ -97,12 +114,16 @@ public class ButtonController : MonoBehaviour {
 		case 1:
 			if (GlobalData.money > price) {
 				GlobalData.money -= price;
+				GameManager.UpdateMoney ();
+				GlobalData.currency_updated = true;
 				return true;
 			}
 			return false;
 		case 2:
 			if (GlobalData.gems > price) {
 				GlobalData.gems -= price;
+				GameManager.UpdateGems ();
+				GlobalData.currency_updated = true;
 				return true;
 			}
 			return false;
