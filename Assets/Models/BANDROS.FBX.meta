@@ -1,22 +1,27 @@
 fileFormatVersion: 2
-guid: a92870cec79526e479e4902ac1fec253
-timeCreated: 1459834328
+guid: 36e5576f8beb95b4e9d1df89af8be242
+timeCreated: 1463218891
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: OilTank01
-    100002: OilTank02
-    100004: //RootNode
-    400000: OilTank01
-    400002: OilTank02
-    400004: //RootNode
-    2300000: OilTank01
-    2300002: OilTank02
-    3300000: OilTank01
-    3300002: OilTank02
-    4300000: OilTank01
-    4300002: OilTank02
+    100000: //RootNode
+    100002: Cylinder01
+    100004: Cylinder02
+    100006: Cylinder03
+    400000: //RootNode
+    400002: Cylinder01
+    400004: Cylinder02
+    400006: Cylinder03
+    2300000: Cylinder01
+    2300002: Cylinder02
+    2300004: Cylinder03
+    3300000: Cylinder01
+    3300002: Cylinder02
+    3300004: Cylinder03
+    4300000: Cylinder01
+    4300002: Cylinder02
+    4300004: Cylinder03
   materials:
     importMaterials: 1
     materialName: 0

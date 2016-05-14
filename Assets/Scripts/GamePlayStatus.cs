@@ -12,6 +12,7 @@ public class GamePlayStatus : MonoBehaviour {
 	private float seconds;
 	private int foundMatches = 0;
 	private int coins = 0;
+	private int coinsMultiplier = 1;
 
 	public Text timerText;
 	public Text foundMatchesText;
@@ -22,12 +23,22 @@ public class GamePlayStatus : MonoBehaviour {
 	public GameObject waktuHabis;
 	public GameObject berhasil;
 	public GameObject ARCamera;
+	public GameObject moneyBoosterButton;
+	public GameObject removePairButton;
+	public GameObject timeBoosterButton;
 
 	void Start() {
 		startTimer(90.0f);
 		coinsText.text = coins.ToString();
 		notifText.enabled = false;
 		foundMatchesText.text = foundMatches + "/" + ListObject.getTotalCount () + " match";
+		if (GlobalData.item_timebooster == 0)
+			timeBoosterButton.GetComponent<Button> ().interactable = false;
+		if (GlobalData.item_moneybooster == 0)
+			moneyBoosterButton.GetComponent<Button> ().interactable = false;
+		if (GlobalData.item_removepair == 0)
+			removePairButton.GetComponent<Button> ().interactable = false;
+		
 	}
 
 	public void startTimer(float from){
@@ -63,12 +74,13 @@ public class GamePlayStatus : MonoBehaviour {
 	}
 
 	public void foundMatch(string objectName) {
-		ShowMessage ();
+		showMessage (objectName + " ditemukan!");
 		//deactivateModel (objectName);
 		GameObject.Find (objectName).transform.parent.gameObject.SetActive (false);
+		ListObject.removeRemainingModel (objectName);
 		foundMatches++;
 		foundMatchesText.text = foundMatches + "/" + ListObject.getTotalCount () + " match";
-		coins += 5;
+		coins += 5*coinsMultiplier;
 		coinsText.text = coins.ToString();
 		if (foundMatches == ListObject.getTotalCount ()) {
 			winGame ();
@@ -97,7 +109,8 @@ public class GamePlayStatus : MonoBehaviour {
 		SceneManager.LoadScene ("gamePlay");
 	}
 
-	IEnumerator ShowMessage () {
+	IEnumerator showMessage (string message) {
+		notifText.text = message;
 		notifText.enabled = true;
 		yield return new WaitForSeconds(2.0f);
 		notifText.enabled = false;
@@ -106,6 +119,29 @@ public class GamePlayStatus : MonoBehaviour {
 	IEnumerator deactivateModel(string objectName) {
 		yield return new WaitForSeconds (1.0f);
 		GameObject.Find (objectName).transform.parent.gameObject.SetActive (false);
+	}
+
+	public void moneyBooster() {
+		GlobalData.item_moneybooster -= 1;
+		showMessage ("x2 koin!");
+		coins *= 2;
+		coinsMultiplier = 2;
+		moneyBoosterButton.GetComponent<Button> ().interactable = false;
+	}
+
+	public void removePair() {
+		GlobalData.item_removepair -= 1;
+		foundMatch (ListObject.getRemainingModel ());
+		if (GlobalData.item_removepair == 0)
+			removePairButton.GetComponent<Button> ().interactable = false;
+	}
+
+	public void timeBooster() {
+		GlobalData.item_timebooster -= 1;
+		showMessage ("+10 detik!");
+		timeLeft += 10.0f;
+		if (GlobalData.item_timebooster == 0)
+			timeBoosterButton.GetComponent<Button> ().interactable = false;
 	}
 
 }

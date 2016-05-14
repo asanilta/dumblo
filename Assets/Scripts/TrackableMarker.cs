@@ -54,7 +54,7 @@ public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 				model.transform.parent = mTrackableBehaviour.transform;
 				model.SetActive (true);
 			}
-			model.GetComponent<Renderer> ().enabled = true;
+			//model.GetComponent<Renderer> ().enabled = true;
 			network.GetComponent<NetworkMasterClient>().Guess (model.transform.name);
 			//GameObject.Find ("Model Name").GetComponent<Text> ().text = model.transform.name;
 		}
@@ -62,7 +62,8 @@ public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 		private void OnTrackingLost()
 		{
 			if (model != null) {
-				model.GetComponent<Renderer> ().enabled = false;
+				model.SetActive (false);
+				//model.GetComponent<Renderer> ().enabled = false;
 				//GameObject.Find ("Model Name").GetComponent<Text> ().text = "";
 			}
 			network.GetComponent<NetworkMasterClient>().Guess ("");
