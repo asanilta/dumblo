@@ -12,6 +12,7 @@ public class LevelCount : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (GlobalData.level_updated) {
+			GameManager.LevelUp ();
 			level_text.text = GlobalData.player_level.ToString ();
 			GlobalData.level_updated = false;
 		}
