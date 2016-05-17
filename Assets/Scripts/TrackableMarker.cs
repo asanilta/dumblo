@@ -52,8 +52,9 @@ public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 			{
 				model = ListObject.getFreeModel();
 				model.transform.parent = mTrackableBehaviour.transform;
-				model.SetActive (true);
 			}
+
+			model.SetActive (true);
 			//model.GetComponent<Renderer> ().enabled = true;
 			network.GetComponent<NetworkMasterClient>().Guess (model.transform.name);
 			//GameObject.Find ("Model Name").GetComponent<Text> ().text = model.transform.name;

@@ -38,7 +38,7 @@ public class GamePlayStatus : MonoBehaviour {
 			moneyBoosterButton.GetComponent<Button> ().interactable = false;
 		if (GlobalData.item_removepair == 0)
 			removePairButton.GetComponent<Button> ().interactable = false;
-		
+
 	}
 
 	public void startTimer(float from){
@@ -99,6 +99,7 @@ public class GamePlayStatus : MonoBehaviour {
 		berhasil.SetActive (true);
 		ARCamera.SetActive (false);
 		GlobalData.money += (uint) (int)coins;
+		GameManager.UpdateMoney ();
 	}
 
 	public void toMainMenu() {
@@ -123,6 +124,7 @@ public class GamePlayStatus : MonoBehaviour {
 
 	public void moneyBooster() {
 		GlobalData.item_moneybooster -= 1;
+		GameManager.UpdateMoneyBooster ();
 		showMessage ("x2 koin!");
 		coins *= 2;
 		coinsMultiplier = 2;
@@ -131,6 +133,7 @@ public class GamePlayStatus : MonoBehaviour {
 
 	public void removePair() {
 		GlobalData.item_removepair -= 1;
+		GameManager.UpdateRemovePair ();
 		foundMatch (ListObject.getRemainingModel ());
 		if (GlobalData.item_removepair == 0)
 			removePairButton.GetComponent<Button> ().interactable = false;
@@ -138,6 +141,7 @@ public class GamePlayStatus : MonoBehaviour {
 
 	public void timeBooster() {
 		GlobalData.item_timebooster -= 1;
+		GameManager.UpdateTimeBooster ();
 		showMessage ("+10 detik!");
 		timeLeft += 10.0f;
 		if (GlobalData.item_timebooster == 0)

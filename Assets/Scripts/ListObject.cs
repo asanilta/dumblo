@@ -11,9 +11,6 @@ public class ListObject : MonoBehaviour {
 		Object[] objects = Resources.LoadAll("Prefabs");
 		foreach (Object obj in objects) {
 			freeModels.Add ((GameObject)obj);
-			remainingModels.Add (((GameObject)obj).transform.name);
-
-			Debug.Log ("Model: "+((GameObject)obj).transform.name);
 		}
 		totalCount = freeModels.Count;
 	}
@@ -23,6 +20,7 @@ public class ListObject : MonoBehaviour {
 		GameObject model = GameObject.Instantiate (freeModels [index]);
 		model.transform.name = freeModels [index].transform.name;
 		freeModels.RemoveAt (index);
+		remainingModels.Add (model.transform.name);
 		return model;
 	}
 
