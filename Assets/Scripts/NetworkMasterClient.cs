@@ -149,7 +149,10 @@ public class NetworkMasterClient : MonoBehaviour
         var msg = netMsg.ReadMessage<MasterMsgTypes.GuessedMessage>();
         string guess = msg.name;
         Debug.Log("OnGuessed " + guess);
-		gameStatus.GetComponent<GamePlayStatus> ().foundMatch (guess);
+		if (gameStatus == null)
+			gameStatus = GameObject.Find ("GameStatus");
+		if (gameStatus != null)
+			gameStatus.GetComponent<GamePlayStatus> ().foundMatch (guess);
         // OnServerEvent((MasterMsgTypes.NetworkMasterServerEvent)msg.resultCode);
     }
 
