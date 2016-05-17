@@ -53,6 +53,10 @@ public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 				model = ListObject.getFreeModel();
 				model.transform.parent = mTrackableBehaviour.transform;
 			}
+			if (model != null) {
+				model.SetActive (true);
+			}
+
 			if (network == null)
 				network = GameObject.Find ("GameNetwork");			
 			if (network != null)
