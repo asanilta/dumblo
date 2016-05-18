@@ -149,7 +149,10 @@ public class NetworkMasterClient : MonoBehaviour
         var msg = netMsg.ReadMessage<MasterMsgTypes.GuessedMessage>();
         string guess = msg.name;
         Debug.Log("OnGuessed " + guess);
-		gameStatus.GetComponent<GamePlayStatus> ().foundMatch (guess);
+		if (gameStatus == null)
+			gameStatus = GameObject.Find ("GameStatus");
+		if (gameStatus != null)
+			gameStatus.GetComponent<GamePlayStatus> ().foundMatch (guess);
         // OnServerEvent((MasterMsgTypes.NetworkMasterServerEvent)msg.resultCode);
     }
 
@@ -157,13 +160,12 @@ public class NetworkMasterClient : MonoBehaviour
     // public method
 
     public void Guess(string guess)
-    {
+    {		
         if (!isConnected)
         {
             Debug.LogError("Guess not connected");
             return;
         }
-
         var msg = new MasterMsgTypes.GuessMessage();
         msg.guess = guess;
         Debug.Log("Guessing " + guess);
@@ -279,10 +281,12 @@ public class NetworkMasterClient : MonoBehaviour
     }
 
     void OnGUI()
-    {/*
+    {		
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.black;
         GUI.Label(new Rect(0, 0, 300, 50), asd, style);
+
+		/*
         if (client != null && client.isConnected)
         {
             if (GUI.Button(new Rect(100, 20+yoffset, 200, 20), "MasterClient Disconnect"))

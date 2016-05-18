@@ -47,16 +47,21 @@ public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 			}
 		} 
 		private void OnTrackingFound()
-		{
+		{			
 			if (model == null)
 			{
 				model = ListObject.getFreeModel();
 				model.transform.parent = mTrackableBehaviour.transform;
 			}
+			if (model != null) {
+				model.SetActive (true);
+			}
 
-			model.SetActive (true);
-			//model.GetComponent<Renderer> ().enabled = true;
-			network.GetComponent<NetworkMasterClient>().Guess (model.transform.name);
+			if (network == null)
+				network = GameObject.Find ("GameNetwork");			
+			if (network != null)
+				network.GetComponent<NetworkMasterClient>().Guess (model.transform.name);
+			//model.GetComponent<Renderer> ().enabled = true;			
 			//GameObject.Find ("Model Name").GetComponent<Text> ().text = model.transform.name;
 		}
 
@@ -67,7 +72,10 @@ public class TrackableMarker : MonoBehaviour, ITrackableEventHandler {
 				//model.GetComponent<Renderer> ().enabled = false;
 				//GameObject.Find ("Model Name").GetComponent<Text> ().text = "";
 			}
-			network.GetComponent<NetworkMasterClient>().Guess ("");
+			if (network == null)
+				network = GameObject.Find ("GameNetwork");
+			if (network != null)
+				network.GetComponent<NetworkMasterClient>().Guess ("");
 			/*Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
 			Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 

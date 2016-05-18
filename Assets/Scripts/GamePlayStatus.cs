@@ -76,7 +76,9 @@ public class GamePlayStatus : MonoBehaviour {
 	public void foundMatch(string objectName) {
 		showMessage (objectName + " ditemukan!");
 		//deactivateModel (objectName);
-		GameObject.Find (objectName).transform.parent.gameObject.SetActive (false);
+		var obj = GameObject.Find(objectName);
+		if (obj != null)
+			obj.transform.parent.gameObject.SetActive (false);		
 		ListObject.removeRemainingModel (objectName);
 		foundMatches++;
 		foundMatchesText.text = foundMatches + "/" + ListObject.getTotalCount () + " match";
