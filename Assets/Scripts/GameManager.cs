@@ -52,4 +52,17 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt ("player_exp", (int)GlobalData.player_exp);
 		PlayerPrefs.Save ();
 	}
+
+	public static void UpdateAvatar() {
+		PlayerPrefs.SetInt ("player_gender", (int)GlobalData.player_gender);
+		PlayerPrefs.SetInt ("avatar_hair", (int)GlobalData.avatar_hair);
+		PlayerPrefs.SetInt ("avatar_top", (int)GlobalData.avatar_top);
+		PlayerPrefs.SetInt ("avatar_bottom", (int)GlobalData.avatar_bottom);
+		PlayerPrefs.Save ();
+	}
+
+	public static void UpdateName() {
+		PlayerPrefs.SetString ("player_name", GlobalData.player_name);
+		PlayerPrefs.Save ();
+	}
 }

@@ -167,6 +167,13 @@ public class ButtonController : MonoBehaviour {
 		GlobalData.player_name = name;
 	}
 
+	public void SignUp() {
+		GameManager.UpdateAvatar ();
+		GameManager.UpdateName ();
+		SplashAnimation.sequence = 4;
+		LoadPrefab (0);
+	}
+
 	public void Exit() {
 		Application.Quit ();
 	}

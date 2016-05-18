@@ -45,27 +45,37 @@ public class SplashAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GlobalData.new_player) {
-			switch (sequence) {
-			case 0:
-				Animation1 ();
-				break;
-			case 1:
-				Animation2 ();
-				break;
-			case 2:
-				Animation3 ();
-				break;
-			case 3:
-				break;
-			case 4:
-				Animation4 ();
-				break;
+		
+		switch (sequence) {
+		case 0:
+			Animation1 ();
+			break;
+		case 1:
+			Animation2 ();
+			break;
+		case 2:
+			if (!GlobalData.new_player) {
+				sequence = 4;
 			}
-		} else {
-			Destroy (dark);
+			Animation3 ();
+			break;
+		case 3:
+			GameObject obj = Instantiate(prefabs[2]) as GameObject;
+			obj.transform.SetParent(GameObject.Find("Canvas").transform);
+			obj.transform.localScale = new Vector3 (1f, 1f, 1f);
+			obj.transform.localPosition = new Vector3 (0, 0, 0);
+			sequence = 6;
+			break;
+		case 4:
 			Destroy (dark2);
+			Animation4 ();
+			break;
+		case 5:
+			Destroy (dark);
 			Destroy (this);
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -97,8 +107,9 @@ public class SplashAnimation : MonoBehaviour {
 	}
 
 	void Animation4() {
-		if (logo.transform.position.y < 156)
-			logo.transform.position += transform.up;
+		Debug.Log (logo.transform.localPosition.y);
+		if (logo.transform.localPosition.y < 156)
+			logo.transform.localPosition += transform.up;
 		else
 			sequence = 5;
 	}
