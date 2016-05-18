@@ -22,6 +22,14 @@ public class ButtonController : MonoBehaviour {
 		obj.transform.localPosition = new Vector3 (0, 0, 0);
 	}
 
+	public void LoadAvatar(int index) {
+		GlobalData.player_gender = (uint) (int) index;
+		GameObject obj = Instantiate(prefabs[index]) as GameObject;
+		obj.transform.SetParent(GameObject.Find("Canvas").transform);
+		obj.transform.localScale = new Vector3 (1f, 1f, 1f);
+		obj.transform.localPosition = new Vector3 (0, 0, 0);
+	}
+
 	public void PopupPrefab(int index) {
 		GameObject obj = Instantiate(prefabs[index]) as GameObject;
 		obj.transform.SetParent(GameObject.Find("Canvas").transform);
@@ -153,6 +161,10 @@ public class ButtonController : MonoBehaviour {
 	public void SwitchSound() {
 		GlobalData.sound_on = GlobalData.sound_on? true : false;
 		PlayerPrefs.SetInt("sound_on", GlobalData.sound_on? 1 : 0);
+	}
+
+	public void EditName(string name) {
+		GlobalData.player_name = name;
 	}
 
 	public void Exit() {

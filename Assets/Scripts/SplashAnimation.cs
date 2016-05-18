@@ -14,7 +14,7 @@ public class SplashAnimation : MonoBehaviour {
 	Image dark2I;
 
 	static public int sequence = 0;
-	int ctr = 0;
+	//int ctr = 0;
 	// Use this for initialization
 	void Start () {
 		dark = Instantiate(prefabs[1]) as GameObject;
@@ -45,22 +45,27 @@ public class SplashAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Count())
-		switch (sequence) {
-		case 0:
-			Animation1 ();
-			break;
-		case 1:
-			Animation2 ();
-			break;
-		case 2:
-			Animation3 ();
-			break;
-		case 3:
-			break;
-		case 4:
-			Animation4 ();
-			break;
+		if (GlobalData.new_player) {
+			switch (sequence) {
+			case 0:
+				Animation1 ();
+				break;
+			case 1:
+				Animation2 ();
+				break;
+			case 2:
+				Animation3 ();
+				break;
+			case 3:
+				break;
+			case 4:
+				Animation4 ();
+				break;
+			}
+		} else {
+			Destroy (dark);
+			Destroy (dark2);
+			Destroy (this);
 		}
 	}
 
@@ -96,15 +101,5 @@ public class SplashAnimation : MonoBehaviour {
 			logo.transform.position += transform.up;
 		else
 			sequence = 5;
-	}
-
-	bool Count() {
-		ctr++;
-		if (ctr >= 1) {
-			ctr = 0;
-			return true;
-		} else {
-			return false;
-		}
 	}
 }
