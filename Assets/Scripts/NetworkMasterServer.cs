@@ -44,6 +44,8 @@ public class NetworkMasterServer : MonoBehaviour
 	Dictionary<int, string> guesses = new Dictionary<int, string>();
 
 	string asd = "wew\n";
+	private HashSet<string> guessed = new HashSet<string>();
+	private int connected = 0;
 
 	public void Start()
 	{
@@ -106,11 +108,15 @@ public class NetworkMasterServer : MonoBehaviour
 	void OnServerConnect(NetworkMessage netMsg)
 	{
 		Debug.Log("Master received client");
+		++connected;
 	}
 
 	void OnServerDisconnect(NetworkMessage netMsg)
 	{
 		Debug.Log("Master lost client");
+		--connected;
+		if (connected <= 0)
+			guessed.Clear ();
 
 		// remove the associated host
 		foreach (var rooms in gameTypeRooms.Values)
@@ -231,7 +237,12 @@ public class NetworkMasterServer : MonoBehaviour
 
 		var response = new MasterMsgTypes.GuessedMessage();
 		response.name = guess;
-		NetworkServer.SendToAll(MasterMsgTypes.GuessedId, response);
+		if (!guessed.Contains (guess)) {			
+			NetworkServer.SendToAll (MasterMsgTypes.GuessedId, response);
+			guessed.Add (guess);
+			if (guessed.Count >= 6)
+				guessed.Clear ();
+		}
 		// netMsg.conn.Send();
 	}
 

@@ -282,9 +282,9 @@ public class NetworkMasterClient : MonoBehaviour
 
     void OnGUI()
     {		
-        GUIStyle style = new GUIStyle();
-        style.normal.textColor = Color.black;
-        GUI.Label(new Rect(0, 0, 300, 50), asd, style);
+        //GUIStyle style = new GUIStyle();
+        //style.normal.textColor = Color.black;
+        //GUI.Label(new Rect(0, 0, 300, 50), asd, style);
 
 		/*
         if (client != null && client.isConnected)

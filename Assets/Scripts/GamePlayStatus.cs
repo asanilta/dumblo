@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GamePlayStatus : MonoBehaviour {
 
@@ -26,6 +27,8 @@ public class GamePlayStatus : MonoBehaviour {
 	public GameObject moneyBoosterButton;
 	public GameObject removePairButton;
 	public GameObject timeBoosterButton;
+
+	private HashSet<string> guessed = new HashSet<string>();
 
 	void Start() {
 		startTimer(90.0f);
@@ -75,10 +78,10 @@ public class GamePlayStatus : MonoBehaviour {
 
 	public void foundMatch(string objectName) {
 		showMessage (objectName + " ditemukan!");
-		//deactivateModel (objectName);
+		// deactivateModel (objectName);
 		var obj = GameObject.Find(objectName);
 		if (obj != null)
-			obj.transform.parent.gameObject.SetActive (false);		
+			obj.transform.parent.gameObject.SetActive (false);
 		ListObject.removeRemainingModel (objectName);
 		foundMatches++;
 		foundMatchesText.text = foundMatches + "/" + ListObject.getTotalCount () + " match";
@@ -105,6 +108,7 @@ public class GamePlayStatus : MonoBehaviour {
 	}
 
 	public void toMainMenu() {
+		SplashAnimation.sequence = 0;
 		SceneManager.LoadScene ("mainMenu");
 	}
 
@@ -112,21 +116,24 @@ public class GamePlayStatus : MonoBehaviour {
 		SceneManager.LoadScene ("gamePlay");
 	}
 
-	IEnumerator showMessage (string message) {
+	private IEnumerator showMessage (string message) {
 		notifText.text = message;
-		notifText.enabled = true;
+		notifText.gameObject.SetActive(true);
 		yield return new WaitForSeconds(2.0f);
-		notifText.enabled = false;
+		notifText.gameObject.SetActive(false);
 	}
 
-	IEnumerator deactivateModel(string objectName) {
+	private IEnumerator deactivateModel(string objectName) {
 		yield return new WaitForSeconds (1.0f);
-		GameObject.Find (objectName).transform.parent.gameObject.SetActive (false);
+		var obj = GameObject.Find(objectName);
+		if (obj != null)
+			obj.transform.parent.gameObject.SetActive (false);
 	}
 
 	public void moneyBooster() {
 		GlobalData.item_moneybooster -= 1;
 		GameManager.UpdateMoneyBooster ();
+		GlobalData.ability_updated = true;
 		showMessage ("x2 koin!");
 		coins *= 2;
 		coinsMultiplier = 2;
@@ -136,6 +143,7 @@ public class GamePlayStatus : MonoBehaviour {
 	public void removePair() {
 		GlobalData.item_removepair -= 1;
 		GameManager.UpdateRemovePair ();
+		GlobalData.ability_updated = true;
 		foundMatch (ListObject.getRemainingModel ());
 		if (GlobalData.item_removepair == 0)
 			removePairButton.GetComponent<Button> ().interactable = false;
@@ -144,6 +152,7 @@ public class GamePlayStatus : MonoBehaviour {
 	public void timeBooster() {
 		GlobalData.item_timebooster -= 1;
 		GameManager.UpdateTimeBooster ();
+		GlobalData.ability_updated = true;
 		showMessage ("+10 detik!");
 		timeLeft += 10.0f;
 		if (GlobalData.item_timebooster == 0)

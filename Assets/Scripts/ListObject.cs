@@ -5,14 +5,13 @@ using System.Collections.Generic;
 public class ListObject : MonoBehaviour {
 	private static List<GameObject> freeModels = new List<GameObject>();
 	private static List<string> remainingModels = new List<string>();
-	private static int totalCount;
+	private static int totalCount = 6;
 
 	void Awake () {
 		Object[] objects = Resources.LoadAll("Prefabs");
 		foreach (Object obj in objects) {
 			freeModels.Add ((GameObject)obj);
 		}
-		totalCount = freeModels.Count;
 	}
 
 	public static GameObject getFreeModel() {
